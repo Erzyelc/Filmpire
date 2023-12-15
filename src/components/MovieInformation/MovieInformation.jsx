@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   Typography,
@@ -38,6 +38,7 @@ const MovieInformation = () => {
   const { data, isFetching, error } = useGetMovieQuery(id);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   const { data: recommendations, isFetching: isRecommendationsFetching } =
     useGetRecommendationsQuery({ list: "/recommendations", movie_id: id });
@@ -104,7 +105,7 @@ const MovieInformation = () => {
             >
               <img
                 src={genreIcons[genre.name.toLowerCase()]}
-                classname={classes.genreImage}
+                className={classes.genreImage}
                 height={30}
                 alt="Genre"
               />
@@ -129,10 +130,10 @@ const MovieInformation = () => {
         </Typography>
         <Grid item container spacing={2}>
           {data &&
-            data.credits?.cast
+            data?.credits?.cast
               ?.map(
                 (character, i) =>
-                  character.profile_path && (
+                  character?.profile_path && (
                     <Grid
                       key={i}
                       item
@@ -178,7 +179,11 @@ const MovieInformation = () => {
                 >
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href="#"
+                  endIcon={<Theaters />}
+                >
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -225,9 +230,41 @@ const MovieInformation = () => {
         {recommendations ? (
           <MovieList movies={recommendations} numberOfMovies={12} />
         ) : (
-          <Box></Box>
+          <Box>Sorry nothing was found</Box>
         )}
       </Box>
+      {/* <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            frameBorder="0"
+            title="Video Player"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal> */}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        className={classes.modal}
+        closeAfterTransition
+      >
+        <iframe
+          autoPlay
+          className={classes.video}
+          frameBorder="0"
+          title="Video Player"
+          src={`https://www.youtube.com/embed/${data?.videos?.results?.[0]?.key}`}
+          allow="autoplay"
+        />
+      </Modal>
     </Grid>
   );
 };
