@@ -26,7 +26,7 @@ export default makeStyles((theme) => ({
     },
   },
   title: {
-    color: theme.palette.primary,
+    filter: theme.palette.mode === "dark" && "invert(1)",
     textOverflow: "ellipsis",
     width: "230px",
     whiteSpace: "nowrap",
