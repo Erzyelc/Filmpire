@@ -66,18 +66,19 @@ const NavBar = () => {
           {isMobile && (
             <IconButton
               color="inherit"
+              aria-label="open drawer"
               edge="start"
               style={{ outline: "none" }}
-              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+              onClick={() => setMobileOpen(!mobileOpen)}
               className={classes.menuButton}
             >
               <Menu />
             </IconButton>
           )}
           <IconButton
-            color="inherit"
             sx={{ ml: 1 }}
             onClick={colorMode.toggleColorMode}
+            color="inherit"
           >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
@@ -93,13 +94,13 @@ const NavBar = () => {
                 component={Link}
                 to={`/profile/${user.id}`}
                 className={classes.linkButton}
-                onClick={() => {}}
+                onClick={() => setMobileOpen(false)}
               >
                 {!isMobile && <>My Movies &nbsp;</>}
                 <Avatar
-                  style={{ width: "30px", height: "30px" }}
-                  alt="Profile"
-                  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+                  style={{ width: 30, height: 30 }}
+                  alt={user.username}
+                  src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
                 />
               </Button>
             )}
