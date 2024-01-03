@@ -9,14 +9,8 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     marginLeft: "240px",
     [theme.breakpoints.down("sm")]: {
-      marginLeft: "0px",
+      marginLeft: "0",
       flexWrap: "wrap",
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
     },
   },
   drawer: {
@@ -25,13 +19,19 @@ export default makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
-  drawerPaper: {
-    width: drawerWidth,
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
   linkButton: {
     "&:hover": {
       color: "white !important",
       textDecoration: "none",
     },
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
 }));
